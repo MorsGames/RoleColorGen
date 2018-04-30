@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
@@ -86,8 +87,8 @@ namespace RoleColorGen
 
         private void MixColors()
         {
-            panel1.BackColor = ColorTranslator.FromHtml(textBox1.Text);
-            panel2.BackColor = ColorTranslator.FromHtml(textBox2.Text);
+            panel1.BackColor = ConvertColor(textBox1.Text);
+            panel2.BackColor = ConvertColor(textBox2.Text);
 
             var color1 = MakeColor(panel1.BackColor);
             var color2 = MakeColor(panel2.BackColor);
@@ -97,14 +98,26 @@ namespace RoleColorGen
 
             textBoxResult.Text = "";
 
-            for (var i = 0; i < numericUpDown1.Value-1; i++)
+            for (var i = 0; i < numericUpDown1.Value - 1; i++)
             {
-                var h = color1.h + (color2.h - color1.h) * i / (int)(numericUpDown1.Value-1);
-                var s = color1.s + (color2.s - color1.s) * i / (int)(numericUpDown1.Value-1);
-                var v = color1.v + (color2.v - color1.v) * i / (int)(numericUpDown1.Value-1);
+                var h = color1.h + (color2.h - color1.h) * i / (int)(numericUpDown1.Value - 1);
+                var s = color1.s + (color2.s - color1.s) * i / (int)(numericUpDown1.Value - 1);
+                var v = color1.v + (color2.v - color1.v) * i / (int)(numericUpDown1.Value - 1);
                 textBoxResult.Text += ConvertHex(ColorFromHSV(MakeColor(h, s, v))) + " ";
             }
             textBoxResult.Text += ConvertHex(panel2.BackColor);
+        }
+
+        private Color ConvertColor(string str)
+        {
+            try
+            {
+                return ColorTranslator.FromHtml(str);
+            }
+            catch
+            {
+                return Color.White;
+            }
         }
 
         private static String ConvertHex(Color c)
@@ -137,7 +150,8 @@ namespace RoleColorGen
                         MessageBox.Show("RoleColorGen is a small utility that allows you to generate rainbow like role colors for your Discord server. Simply choose 2 colors, set the number of the roles, and bum!","What's this?", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         return;
                     case ITEM2:
-                        MessageBox.Show("RoleColorGen 1.0 by Mors. Greetings from 2018.","About", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        var ver = Assembly.GetExecutingAssembly().GetName().Version;
+                        MessageBox.Show("RoleColorGen v" + ver.Major + "." + ver.Minor + " by Mors. Greetings from 2018.","About", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         return;
                     default:
                         break;

@@ -102,7 +102,7 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(241, 42);
             this.textBox1.TabIndex = 8;
-            this.textBox1.Text = "#8080FF";
+            this.textBox1.Text = "#7F7FFF";
             this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
             // 
             // textBox2
@@ -116,7 +116,7 @@
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(241, 42);
             this.textBox2.TabIndex = 7;
-            this.textBox2.Text = "#FFA040";
+            this.textBox2.Text = "#FF803F";
             this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // textBox3
